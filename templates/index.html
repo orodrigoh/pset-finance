@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% if get_flashed_messages() %}
+    {{msg}}
+{% endif %}
+
+
+{% block main %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="4"></td>
+                <td>{{(cash + total) | usd}}</td>
+            </tr>
+        </tfoot>
+        <tbody>
+                {% for stocks in stockUser %}
+                <tr>
+                    <td>{{stocks.symbol}}</td>
+                    <td>{{stocks.name}}</td>
+                    <td>{{stocks.shares}}</td>
+                    <td>{{stocks.price | usd}}</td>
+                    <td>{{(stocks.price * stocks.shares) | usd}}</td>
+                </tr>
+                {% endfor %}
+            <tr>
+                <td>CASH</td>
+                <td colspan="3"></td>
+                <td>{{cash | usd}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}
+
